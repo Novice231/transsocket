@@ -17,9 +17,10 @@ public class TcpServerHandler extends SimpleChannelInboundHandler<Object> {
 
     private static Logger log = LogManager.getLogger(TcpServerHandler.class);
 
-    private final String OPENFAN = "01";
-    private final String CLOSEFAN = "02";
-    private final String OPENAOTUFAN = "03";
+    private final String OPENLED1 = "01";
+    private final String CLOSLED1 = "02";
+    private final String OPENBEEP = "03";
+    private final String CLOSEBEEP = "04";
     private final String SUCCEED = "1";
     private final String FAILED = "0";
 
@@ -32,18 +33,22 @@ public class TcpServerHandler extends SimpleChannelInboundHandler<Object> {
      */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (OPENFAN.equals(msg)) {
-            log.info("TCP Server收到开启风扇的指令：" + msg);
+        if (OPENLED1.equals(msg)) {
+            log.info("TCP Server收到开启LED1的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
-            TransServerHandler.sendMessage("S" + (String) msg + "E\n");
-        } else if (CLOSEFAN.equals(msg)) {
-            log.info("TCP Server收到开启洒水的指令：" + msg);
+            TransServerHandler.sendMessage("S"+msg+"E\n");
+        } else if (CLOSLED1.equals(msg)) {
+            log.info("TCP Server收到关闭LED1的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
-            TransServerHandler.sendMessage("S" + (String) msg + "E\n");
-        } else if (OPENAOTUFAN.equals(msg)) {
-            log.info("TCP Server收到开启摇头的指令：" + msg);
+            TransServerHandler.sendMessage("S"+msg+"E\n");
+        } else if (OPENBEEP.equals(msg)) {
+            log.info("TCP Server收到开启Beep的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
-            TransServerHandler.sendMessage("S" + (String) msg + "E\n");
+            TransServerHandler.sendMessage("S"+msg+"E\n");
+        } else if (CLOSEBEEP.equals(msg)) {
+            log.info("TCP Server收到关闭Beep的指令：" + msg);
+            ctx.channel().writeAndFlush(SUCCEED);
+            TransServerHandler.sendMessage("S"+msg+"E\n");
         } else {
             log.info("不明指令：" + msg);
             ctx.channel().writeAndFlush(FAILED);

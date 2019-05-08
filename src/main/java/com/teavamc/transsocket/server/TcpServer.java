@@ -28,12 +28,10 @@ public class TcpServer {
     private static Logger log = LogManager.getLogger(TcpServer.class);
 
     // 服务器地址端口
-    private static final String IP = "127.0.0.1";
-    private static final int PORT = 8888;
+    //private static final String IP = "127.0.0.1";
+    private static final int PORT = 6000;
 
-    //确定客户端的IP地址
-    private final String CLIENT_IP = "127.0.0.1";
-    private final int CLIENT_PORT = 3000;
+
 
 
     /** 用于分配处理业务线程的线程组个数 */
@@ -82,7 +80,7 @@ public class TcpServer {
         });
 
         //异步绑定端口
-        b.bind(IP, PORT).sync();
+        b.bind( PORT).sync();
         log.info("TCP Server端口：" + PORT);
     }
 

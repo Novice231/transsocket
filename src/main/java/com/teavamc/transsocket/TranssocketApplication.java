@@ -20,6 +20,7 @@ public class TranssocketApplication implements CommandLineRunner {
             log.info("TCP服务器启动成功...");
         }catch (Exception e){
             log.info("TCP服务器启动失败...");
+            e.printStackTrace();
         }
         // TcpServer.shutdown();
     }
