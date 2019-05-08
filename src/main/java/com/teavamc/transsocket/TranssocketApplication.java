@@ -1,6 +1,7 @@
 package com.teavamc.transsocket;
 
 import com.teavamc.transsocket.server.TcpServer;
+import com.teavamc.transsocket.transmessage.TransServer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
@@ -31,11 +32,18 @@ public class TranssocketApplication implements CommandLineRunner {
         *
         * @author 张超 teavamc
         * @date 2019/4/29
-        * @param [strings]
+        * @param
         * @return void
         */
     @Override
-    public void run(String... strings){
+    public void run(String... strings) {
+        try {
+            TransServer.run();
+            log.info("端口1234的服务器启动成功...");
+        } catch (Exception e) {
+            log.info("端口1234的服务器启动成功...");
+            e.printStackTrace();
+        }
     }
 
 }

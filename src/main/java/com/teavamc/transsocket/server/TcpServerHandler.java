@@ -1,5 +1,6 @@
 package com.teavamc.transsocket.server;
 
+import com.teavamc.transsocket.transmessage.TransServerHandler;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -34,12 +35,15 @@ public class TcpServerHandler extends SimpleChannelInboundHandler<Object> {
         if (OPENFAN.equals(msg)){
             log.info("TCP Server收到开启风扇的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
+            TransServerHandler.sendMessage((String)msg + "\n");
         }else if(CLOSEFAN.equals(msg)){
             log.info("TCP Server收到开启洒水的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
+            TransServerHandler.sendMessage((String)msg + "\n");
         }else if(OPENAOTUFAN.equals(msg)){
             log.info("TCP Server收到开启摇头的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
+            TransServerHandler.sendMessage((String)msg + "\n");
         }else {
             log.info("不明指令：" + msg);
             ctx.channel().writeAndFlush(FAILED);
@@ -47,7 +51,7 @@ public class TcpServerHandler extends SimpleChannelInboundHandler<Object> {
     }
 
     /**
-        * @Description 
+        * @Description
         * @author 张超 teavamc
         * @date 2019/5/4
         * @Time 16:50
