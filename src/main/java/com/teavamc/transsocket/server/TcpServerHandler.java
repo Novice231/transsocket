@@ -24,39 +24,39 @@ public class TcpServerHandler extends SimpleChannelInboundHandler<Object> {
     private final String FAILED = "0";
 
     /**
-        * @Description 打印接收到的内容，并回传
-        * @author 张超 teavamc
-        * @date 2019/5/4
-        * @Time 16:25
-        * @return void
-        */
+     * @return void
+     * @Description 打印接收到的内容，并回传
+     * @author 张超 teavamc
+     * @date 2019/5/4
+     * @Time 16:25
+     */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
-        if (OPENFAN.equals(msg)){
+        if (OPENFAN.equals(msg)) {
             log.info("TCP Server收到开启风扇的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
-            TransServerHandler.sendMessage((String)msg + "\n");
-        }else if(CLOSEFAN.equals(msg)){
+            TransServerHandler.sendMessage("S" + (String) msg + "E\n");
+        } else if (CLOSEFAN.equals(msg)) {
             log.info("TCP Server收到开启洒水的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
-            TransServerHandler.sendMessage((String)msg + "\n");
-        }else if(OPENAOTUFAN.equals(msg)){
+            TransServerHandler.sendMessage("S" + (String) msg + "E\n");
+        } else if (OPENAOTUFAN.equals(msg)) {
             log.info("TCP Server收到开启摇头的指令：" + msg);
             ctx.channel().writeAndFlush(SUCCEED);
-            TransServerHandler.sendMessage((String)msg + "\n");
-        }else {
+            TransServerHandler.sendMessage("S" + (String) msg + "E\n");
+        } else {
             log.info("不明指令：" + msg);
             ctx.channel().writeAndFlush(FAILED);
         }
     }
 
     /**
-        * @Description
-        * @author 张超 teavamc
-        * @date 2019/5/4
-        * @Time 16:50
-        * @return void
-        */
+     * @return void
+     * @Description
+     * @author 张超 teavamc
+     * @date 2019/5/4
+     * @Time 16:50
+     */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.info("exceptionCaught!cause:" + cause.toString());
